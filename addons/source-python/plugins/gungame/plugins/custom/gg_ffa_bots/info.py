@@ -1,4 +1,4 @@
-# ../gungame/plugins/included/gg_ffa_bots/info.py
+# ../gungame/plugins/custom/gg_ffa_bots/info.py
 
 """Contains plugin information."""
 
