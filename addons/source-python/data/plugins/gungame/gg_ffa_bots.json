@@ -1,14 +1,16 @@
 {
-    "linux": {
-        "GetTeamNumber": "_ZNK11CBaseEntity13GetTeamNumberEv",
-        "InSameTeam": "_ZNK11CBaseEntity10InSameTeamEPS_",
-        "OnAudibleEvent": "_ZN6CCSBot14OnAudibleEventEP10IGameEventP11CBasePlayerf12PriorityTypebbPK6Vector",
-        "OnPlayerRadio": "_ZN6CCSBot13OnPlayerRadioEP10IGameEvent"
-    },
-    "windows": {
-        "GetTeamNumber": " 8B 81 F4 01 00 00 C3",
-        "InSameTeam": " 55 8B EC 8B 45 08 57 8B F9 85 C0 75 2A 32 C0 5F 5D C2 04 00",
-        "OnAudibleEvent": " 55 8B EC 83 EC 1C 56 8B 75 0C 57 8B F9 85 F6",
-        "OnPlayerRadio": " 55 8B EC 83 EC 0C 57 8B F9 8B 07 8B 80 04 01 00 00 FF D0 84 C0"
+    "cstrike": {
+        "linux": {
+            "GetTeamNumber": "_ZNK11CBaseEntity13GetTeamNumberEv",
+            "InSameTeam": "_ZNK11CBaseEntity10InSameTeamEPS_",
+            "OnAudibleEvent": "_ZN6CCSBot14OnAudibleEventEP10IGameEventP11CBasePlayerf12PriorityTypebbPK6Vector",
+            "OnPlayerRadio": "_ZN6CCSBot13OnPlayerRadioEP10IGameEvent"
+        },
+        "windows": {
+            "GetTeamNumber": " 8B 81 F4 01 00 00 C3",
+            "InSameTeam": " 55 8B EC 8B 45 08 57 8B F9 85 C0 75 2A 32 C0 5F 5D C2 04 00",
+            "OnAudibleEvent": " 55 8B EC 83 EC 1C 56 8B 75 0C 57 8B F9 85 F6",
+            "OnPlayerRadio": " 55 8B EC 83 EC 0C 57 8B F9 8B 07 8B 80 04 01 00 00 FF D0 84 C0"
+        }
     }
 }
