@@ -8,6 +8,7 @@ ignore=
 # For a list of error codes, see:
 #   http://pylint-messages.wikidot.com/all-codes
 disable=
+    import-error,
 
 
 [BASIC]
@@ -57,4 +58,4 @@ ignore-docstrings=yes
 
 
 [VARIABLES]
-dummy-variables-rgx=
+ignored-argument-names=stack_data

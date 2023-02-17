@@ -98,23 +98,24 @@ def _pre_get_team_number(stack_data):
     """Retrieve the opposite team from above and return that value."""
     pointer = stack_data[0]
     if pointer not in _hacked_teams:
-        return
+        return None
 
     value = _hacked_teams[pointer]
     del _hacked_teams[pointer]
     return value
 
 
+# pylint: disable=inconsistent-return-statements
 @PreHook(InSameTeam)
 def _pre_in_same_team(stack_data):
-    """Always return False for bots from InSameTeam."""
+    """Return False for bots from InSameTeam."""
     other = stack_data[1]
     if stack_data[0] == other:
-        return
+        return None
 
     entity = make_object(Entity, other)
     if entity.classname != 'player':
-        return
+        return None
 
     player = Player(entity.index)
     if player.is_fake_client():
@@ -123,5 +124,5 @@ def _pre_in_same_team(stack_data):
 
 @PreHook(OnPlayerRadio)
 def _pre_on_player_radio(stack_data):
-    """Always return 0 when radio commands are issues."""
+    """Return 0 when radio commands are issued."""
     return 0
