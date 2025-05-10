@@ -22,37 +22,35 @@ from gungame.core.paths import GUNGAME_DATA_PATH
 # Plugin
 from .info import info
 
-
 # =============================================================================
 # >> GLOBAL VARIABLES
 # =============================================================================
-_data_file = GUNGAME_DATA_PATH / info.name + '.json'
+_data_file = GUNGAME_DATA_PATH / info.name + ".json"
 with _data_file.open() as _open_file:
     _data = json.load(_open_file).get(GAME_NAME, {}).get(PLATFORM, {})
 if not _data:
-    raise NotImplementedError(
-        f'Game "{GAME_NAME}" on platform "{PLATFORM}" not currently supported'
-    )
+    msg = f'Game "{GAME_NAME}" on platform "{PLATFORM}" not currently supported'
+    raise NotImplementedError(msg)
 
-if PLATFORM == 'windows':
+if PLATFORM == "windows":
     for _key, _value in _data.items():
-        _data[_key] = binascii.unhexlify(_value.replace(' ', ''))
+        _data[_key] = binascii.unhexlify(_value.replace(" ", ""))
 
-server = find_binary('server')
+server = find_binary("server")
 
-GetTeamNumber = server[_data['GetTeamNumber']].make_function(
+GetTeamNumber = server[_data["GetTeamNumber"]].make_function(
     Convention.THISCALL,
     [DataType.POINTER],
     DataType.INT,
 )
 
-InSameTeam = server[_data['InSameTeam']].make_function(
+InSameTeam = server[_data["InSameTeam"]].make_function(
     Convention.THISCALL,
     [DataType.POINTER, DataType.POINTER],
     DataType.BOOL,
 )
 
-OnAudibleEvent = server[_data['OnAudibleEvent']].make_function(
+OnAudibleEvent = server[_data["OnAudibleEvent"]].make_function(
     Convention.THISCALL,
     [
         DataType.POINTER,
@@ -67,7 +65,7 @@ OnAudibleEvent = server[_data['OnAudibleEvent']].make_function(
     DataType.VOID,
 )
 
-OnPlayerRadio = server[_data['OnPlayerRadio']].make_function(
+OnPlayerRadio = server[_data["OnPlayerRadio"]].make_function(
     Convention.THISCALL,
     [DataType.POINTER, DataType.POINTER],
     DataType.VOID,
@@ -97,15 +95,9 @@ def _pre_on_audible_event(stack_data):
 def _pre_get_team_number(stack_data):
     """Retrieve the opposite team from above and return that value."""
     pointer = stack_data[0]
-    if pointer not in _hacked_teams:
-        return None
-
-    value = _hacked_teams[pointer]
-    del _hacked_teams[pointer]
-    return value
+    return _hacked_teams.pop(pointer, None)
 
 
-# pylint: disable=inconsistent-return-statements
 @PreHook(InSameTeam)
 def _pre_in_same_team(stack_data):
     """Return False for bots from InSameTeam."""
@@ -114,12 +106,14 @@ def _pre_in_same_team(stack_data):
         return None
 
     entity = make_object(Entity, other)
-    if entity.classname != 'player':
+    if entity.classname != "player":
         return None
 
     player = Player(entity.index)
     if player.is_fake_client():
         return False
+
+    return None
 
 
 @PreHook(OnPlayerRadio)
